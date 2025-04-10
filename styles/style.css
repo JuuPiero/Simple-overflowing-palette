@@ -20,7 +20,7 @@ h2 {
     align-items: center;
     padding: 10px 15px;
     gap: 20px;
-    overflow: scroll;
+    /* overflow: scroll; */
 }
 #root {
     font-family: "Roboto", serif;
