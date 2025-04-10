@@ -86,7 +86,7 @@ export default class Game {
 
     async changeColor(color, x, y, callback) {
         const targetCell = this.getCell(x, y);
-        if (!targetCell || targetCell.color === color) return;
+        // if (!targetCell || targetCell.color === color) return;
 
         const prevColor = targetCell.color;
         const queue = [{ x, y }];
