@@ -1,0 +1,54 @@
+body {
+    background-color: black;
+}
+.page-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.menu {
+    margin-top: 50px;
+    padding: 50px;
+    min-height: 600px;
+    width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    background-image: linear-gradient(to right, pink , rgb(51, 122, 198));
+    border: 5px solid white;
+    border-radius: 15px;
+    position: relative;
+    color: white;
+
+}
+.btn {
+    display: flex;
+    justify-content: center;
+    border: 1px solid black;
+    padding: 8px 10px;
+    text-decoration: none;
+    border: 6px solid orange;
+    min-width: 200px;
+    font-weight: bolder;
+    font-size: 1.5rem;
+    background-image: linear-gradient(to top, rgb(39, 162, 200) , rgb(255, 255, 255));
+    border-radius: 5rem;
+    transition: all 0.2s ease-in-out;
+    color: white;
+}
+.btn:hover {
+    opacity: 0.6;
+}
+
+.title {
+    position: absolute;
+    top: 0;
+    transform: translateY(-50%);
+    text-align: center;
+    padding: 10px 15px;
+    background-color: black;
+    border: 3px solid white;
+    border-radius: 5rem;
+}
