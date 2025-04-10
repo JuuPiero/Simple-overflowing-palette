@@ -8,7 +8,7 @@ import {
 import { level1, level2, levels } from "./src/levels.js";
 
 
-const g_ActionsContainer = document.querySelector('.actions')
+const UI_ActionsContainer = document.querySelector('.actions')
 const UI_TargetElement = document.querySelector('.target')
 const UI_Count = document.querySelector('.count')
 const UI_Level = document.querySelector('.level')
@@ -45,21 +45,31 @@ function main() {
     game.run()
 
     UI_TargetElement.style.backgroundColor = game.target
-    g_ActionsContainer.innerHTML = ''
+    UI_ActionsContainer.innerHTML = ''
 
     game.colors.forEach(color => {
         const btn = document.createElement('button')
         btn.classList.add('btn-color')
         btn.style.backgroundColor = color
         btn.value = color
-        btn.addEventListener('click', e => {
-
-        })
-
-
-        g_ActionsContainer.appendChild(btn)
+        UI_ActionsContainer.appendChild(btn)
     })
-    g_ActionsContainer.addEventListener('click', e => {
+
+    const buttons = document.querySelectorAll('.btn-color');
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Xóa class selected khỏi tất cả nút
+            buttons.forEach(btn => btn.classList.remove('selected'));
+            // Thêm class selected cho nút được bấm
+            button.classList.add('selected');
+            // // (Tuỳ chọn) Lấy giá trị của nút
+            // const value = button.getAttribute('data-value');
+            // console.log('Nút được chọn:', value);
+        })
+    })
+
+
+    UI_ActionsContainer.addEventListener('click', e => {
         if(e.target.classList.contains('btn-color')) {
             game.color = e.target.value
             // e.target.classList.toggle('active')
@@ -72,8 +82,15 @@ function main() {
         const mouseY = e.offsetY;
         const cellX = Math.floor(mouseX / CELL_SIZE);
         const cellY = Math.floor(mouseY / CELL_SIZE);
-        await game.changeColor(game.color, cellX, cellY)
+        await game.changeColor(game.color, cellX, cellY, () => {
+            game.checkWin(); // Chỉ chạy sau khi màu đổi xong
+        })
         game.count--
+        
+        // setTimeout(() => {
+        //     game.checkWin()
+        // }, 3000)
+
         UI_Count.innerHTML = game.count
     });
 }

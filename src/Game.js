@@ -30,7 +30,7 @@ export default class Game {
         context.clearRect(0, 0, canvas.width, canvas.height);
         this.render()
         this.loop = requestAnimationFrame(this.run);
-        this.checkWin()
+        // this.checkWin()
     }
 
     load(level) {
@@ -84,7 +84,7 @@ export default class Game {
     //     }
     // }
 
-    async changeColor(color, x, y) {
+    async changeColor(color, x, y, callback) {
         const targetCell = this.getCell(x, y);
         if (!targetCell || targetCell.color === color) return;
 
@@ -133,7 +133,12 @@ export default class Game {
                 }
             }
         }
-       
+         // Gọi callback sau khi màu đã đổi hết
+        if (typeof callback === "function") {
+            setTimeout(() => {
+                callback();
+            }, step * 50); // Delay tương ứng với lần đổi màu cuối cùng
+        }
     }
 
     render() {
@@ -154,17 +159,16 @@ export default class Game {
                 break; // Thoát vòng lặp sớm nếu tìm thấy ô không khớp
             }
         }
+
         if (this.isWinner) {
-           
             cancelAnimationFrame(this.loop);
-            setTimeout(() => {
-                alert("Bạn đã thắng!");
-                if(confirm("Go to next level ?")) {
-                    const currentLevel = parseInt(localStorage.getItem('current'))
-                    localStorage.setItem('current', (currentLevel + 1))
-                    window.location.reload()
-                }
-            }, 500);
+            alert("Bạn đã thắng!");
+            if(confirm("Go to next level ?")) {
+                const currentLevel = parseInt(localStorage.getItem('current'))
+                localStorage.setItem('current', (currentLevel + 1))
+                window.location.reload()
+            }
+            
         } 
         else if (this.count <= 0) {
             alert("Bạn đã thua!");
