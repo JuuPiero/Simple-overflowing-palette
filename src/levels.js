@@ -1,7 +1,7 @@
 const level1 = {
     maxChange: 10,
     colors : ['#FF0000', '#00FF44', '#0000FF', '#FFFF00'],
-    target: 0,
+    target: 1,
     data: [
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
         1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
@@ -17,7 +17,7 @@ const level1 = {
 
 }
 const level2 = {
-    maxChange: 2,
+    maxChange: 10,
     colors : ['#FF0120', '#00FF44', '#0000FF', '#13FF00'],
     target: 0,
     data: [

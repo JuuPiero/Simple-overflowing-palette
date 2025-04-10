@@ -20,18 +20,18 @@ export default class Game {
     constructor() {
         this.grid = []
         this.isWinner = false
-        this.color = null 
         this.currentLevel = null // level data
         this.colors = []
+        this.color = null  // current color to change
         this.loop = null // loop id
-       
+        this.count = 0 // max change
     }
     run = () => {
         context.clearRect(0, 0, canvas.width, canvas.height);
         this.render()
-        // this.checkWin()
         this.loop = requestAnimationFrame(this.run);
-    };
+        this.checkWin()
+    }
 
     load(level) {
         this.currentLevel = level
@@ -39,9 +39,9 @@ export default class Game {
         this.target = level.colors[level.target]
         this.colors = level.colors
         this.color = level.colors[0]
+
         canvas.width = CELL_SIZE * this.currentLevel.cols
         canvas.height = CELL_SIZE * this.currentLevel.rows
-        canvas.classList.add('main-canvas')
 
         for (let y = 0; y < this.currentLevel.rows; y++) {
             for (let x = 0; x < this.currentLevel.cols; x++) {
@@ -84,7 +84,7 @@ export default class Game {
     //     }
     // }
 
-    changeColor(color, x, y) {
+    async changeColor(color, x, y) {
         const targetCell = this.getCell(x, y);
         if (!targetCell || targetCell.color === color) return;
 
@@ -133,6 +133,7 @@ export default class Game {
                 }
             }
         }
+       
     }
 
     render() {
@@ -153,16 +154,24 @@ export default class Game {
                 break; // Thoát vòng lặp sớm nếu tìm thấy ô không khớp
             }
         }
-        // if (this.isWinner) {
-        //     alert("Bạn đã thắng!");
-        //     cancelAnimationFrame(this.loop);
-        //     return
-        // } 
-        // else if (this.count <= 0) {
-        //     alert("Bạn đã thua!");
-        //     cancelAnimationFrame(this.loop);
-        //     return
-        // }
+        if (this.isWinner) {
+           
+            cancelAnimationFrame(this.loop);
+            setTimeout(() => {
+                alert("Bạn đã thắng!");
+                if(confirm("Go to next level ?")) {
+                    const currentLevel = parseInt(localStorage.getItem('current'))
+                    localStorage.setItem('current', (currentLevel + 1))
+                    window.location.reload()
+                }
+            }, 500);
+        } 
+        else if (this.count <= 0) {
+            alert("Bạn đã thua!");
+            cancelAnimationFrame(this.loop);
+            window.location.reload()
+            return
+        }
     }
 
 }

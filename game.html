@@ -8,11 +8,14 @@
     <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-    <div id="root">
-        <h2 class="current-level">Level: 1 / 12</h2>
+    <div class="page-wrapper">
+        <h2 class="current-level">Level: <span class="level">1 / 12</span></h2>
+        <div id="root"> 
+            <strong class="text">Remaining moves: <span class="count">3</span></strong>
+            <canvas></canvas>
+            <div class="actions"></div>
+        </div>
         <h2 class="flex align-items-center gap-1">Turn all the blocks into: <span class="target"></span></h2>
-        <p>Remaining moves: <span class="count">3</span></p>
-        <div class="actions"></div>
     </div>
     <script type="module" src="index.js"></script>
 </body>
