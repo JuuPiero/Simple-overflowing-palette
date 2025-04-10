@@ -5,7 +5,11 @@ import {
     CELL_SIZE,
     canvas
 } from './global.js'
-
+function getRandomElement(arr) {
+    if (arr.length === 0) return null; // Tránh lỗi mảng rỗng
+    const randomIndex = Math.floor(Math.random() * arr.length);
+    return arr[randomIndex];
+}
 export default class Game {
 
     static Instance = null
@@ -37,6 +41,7 @@ export default class Game {
         this.currentLevel = level
         this.count = level.maxChange
         this.target = level.colors[level.target]
+
         this.colors = level.colors
         this.color = level.colors[0]
 
@@ -86,7 +91,7 @@ export default class Game {
 
     async changeColor(color, x, y, callback) {
         const targetCell = this.getCell(x, y);
-        // if (!targetCell || targetCell.color === color) return;
+        // if (!targetCell || targetCell.color === color) return; 
 
         const prevColor = targetCell.color;
         const queue = [{ x, y }];
