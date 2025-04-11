@@ -16,10 +16,3 @@ levels.forEach((level, index) => {
 
     levelContainer.appendChild(a)
 })
-
-
-// levelElements.forEach(level => {
-//     level.addEventListener('click', e => {
-        
-//     })
-// })

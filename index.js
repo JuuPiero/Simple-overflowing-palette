@@ -47,11 +47,16 @@ function main() {
     UI_TargetElement.style.backgroundColor = game.target
     UI_ActionsContainer.innerHTML = ''
 
-    game.colors.forEach(color => {
+    game.colors.forEach((color, i) => {
         const btn = document.createElement('button')
+        const index = document.createElement('span')
         btn.classList.add('btn-color')
         btn.style.backgroundColor = color
         btn.value = color
+
+        index.classList.add('btn-index')
+        index.innerHTML = (i + 1)
+        btn.append(index)
         UI_ActionsContainer.appendChild(btn)
     })
 
