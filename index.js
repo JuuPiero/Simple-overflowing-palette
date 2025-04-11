@@ -7,11 +7,11 @@ import {
 } from './src/global.js'
 import { levels } from "./src/levels.js";
 
-
 const UI_ActionsContainer = document.querySelector('.actions')
 const UI_TargetElement = document.querySelector('.target')
 const UI_Count = document.querySelector('.count')
 const UI_Level = document.querySelector('.level')
+const audio = document.querySelector('audio')
 
 
 let currentLevel = localStorage.getItem('current')
@@ -36,8 +36,8 @@ else {
 function main() {
     UI_Level.innerHTML = (currentLevel + 1) + ' / ' + (levels.length)
 
-    // const game = Game.GetInstance()
-    const game = new Game()
+    const game = Game.GetInstance()
+    // const game = new Game()
     // console.log(game.grid);
 
     game.load(levels[currentLevel])
@@ -67,9 +67,6 @@ function main() {
             buttons.forEach(btn => btn.classList.remove('selected'));
             // Thêm class selected cho nút được bấm
             button.classList.add('selected');
-            // // (Tuỳ chọn) Lấy giá trị của nút
-            // const value = button.getAttribute('data-value');
-            // console.log('Nút được chọn:', value);
         })
     })
 
@@ -83,6 +80,7 @@ function main() {
 
     canvas.addEventListener('click', async (e) => {
         // Lấy tọa độ chuột trong canvas
+        audio.play()
         const mouseX = e.offsetX;
         const mouseY = e.offsetY;
         const cellX = Math.floor(mouseX / CELL_SIZE);

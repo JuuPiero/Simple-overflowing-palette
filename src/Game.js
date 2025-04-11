@@ -110,7 +110,7 @@ export default class Game {
                 const cell = this.getCell(x, y);
                 if (cell && cell.color === prevColor) {
                     cell.color = color;
-                    this.render();
+                    // this.render();
                 }
             }, step * 50);
     
