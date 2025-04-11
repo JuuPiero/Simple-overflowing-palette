@@ -5,7 +5,7 @@ import {
     context, 
     CELL_SIZE
 } from './src/global.js'
-import { level1, level2, levels } from "./src/levels.js";
+import { levels } from "./src/levels.js";
 
 
 const UI_ActionsContainer = document.querySelector('.actions')

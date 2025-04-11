@@ -26,7 +26,6 @@ body {
 .btn {
     display: flex;
     justify-content: center;
-    border: 1px solid black;
     padding: 8px 10px;
     text-decoration: none;
     border: 6px solid orange;
