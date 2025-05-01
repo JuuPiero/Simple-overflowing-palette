@@ -28,7 +28,7 @@ if(currentLevel < (levels.length)) {
     main()
 }
 else {
-    alert("Bạn đã phá đảo game")
+    alert("You have cleared all levels 🎉 🎉 🎉 🎉 ")
     localStorage.setItem('current', 0)
     window.location.href = 'index.html'
 }
@@ -79,21 +79,23 @@ function main() {
     })
 
     canvas.addEventListener('click', async (e) => {
-        // Lấy tọa độ chuột trong canvas
         audio.play()
+        if(game.isChanging) return
+        // Lấy tọa độ chuột trong canvas
         const mouseX = e.offsetX;
         const mouseY = e.offsetY;
         const cellX = Math.floor(mouseX / CELL_SIZE);
         const cellY = Math.floor(mouseY / CELL_SIZE);
+        
         await game.changeColor(game.color, cellX, cellY, () => {
             game.checkWin(); // Chỉ chạy sau khi màu đổi xong
         })
-        game.count--
         
         // setTimeout(() => {
         //     game.checkWin()
         // }, 3000)
 
         UI_Count.innerHTML = game.count
+        game.isChanging = false;
     });
 }

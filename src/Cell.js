@@ -4,5 +4,6 @@ export default class Cell {
         this.y = y
         this.color = null 
         this.prevColor = this.color
+        this.canChange = true
     }
 }

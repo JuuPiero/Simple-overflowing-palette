@@ -36,10 +36,9 @@ body {
     padding: 15px;
     display: flex;
     justify-content: center;
-    /* padding: 8px 10px; */
     text-decoration: none;
     border: 6px solid orange;
-    width: 60px;
+    width: 12%;
     font-weight: bolder;
     font-size: 1.5rem;
     background-image: linear-gradient(to top, rgb(39, 162, 200) , rgb(255, 255, 255));

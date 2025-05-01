@@ -29,6 +29,7 @@ export default class Game {
         this.color = null  // current color to change
         this.loop = null // loop id
         this.count = 0 // max change
+        this.isChanging = false
     }
     run = () => {
         context.clearRect(0, 0, canvas.width, canvas.height);
@@ -89,9 +90,12 @@ export default class Game {
     //     }
     // }
 
+    //FILL
     async changeColor(color, x, y, callback) {
+        this.isChanging = true
         const targetCell = this.getCell(x, y);
-        // if (!targetCell || targetCell.color === color) return; 
+        if (!targetCell || targetCell.color == color) return; 
+        this.count--
 
         const prevColor = targetCell.color;
         const queue = [{ x, y }];
@@ -138,10 +142,11 @@ export default class Game {
                 }
             }
         }
-         // Gọi callback sau khi màu đã đổi hết
+        // Gọi callback sau khi màu đã đổi hết
         if (typeof callback === "function") {
             setTimeout(() => {
                 callback();
+               
             }, step * 50); // Delay tương ứng với lần đổi màu cuối cùng
         }
     }
@@ -167,7 +172,7 @@ export default class Game {
 
         if (this.isWinner) {
             cancelAnimationFrame(this.loop);
-            alert("Bạn đã thắng!");
+            alert("You are winner !!!");
             if(confirm("Go to next level ?")) {
                 const currentLevel = parseInt(localStorage.getItem('current'))
                 localStorage.setItem('current', (currentLevel + 1))
