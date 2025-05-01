@@ -1,5 +1,5 @@
 import Cell from "./Cell.js"
-import { drawRoundedRect } from "./utils.js"
+import { drawCell, drawRoundedRect } from "./utils.js"
 import {
     context, 
     CELL_SIZE,
@@ -51,8 +51,14 @@ export default class Game {
 
         for (let y = 0; y < this.currentLevel.rows; y++) {
             for (let x = 0; x < this.currentLevel.cols; x++) {
-                this.grid[y * this.currentLevel.cols + x] = new Cell(x, y)
-                this.grid[y * this.currentLevel.cols + x].color = this.currentLevel.colors[this.currentLevel.data[y * this.currentLevel.cols + x]]
+                if(this.currentLevel.data[y * this.currentLevel.cols + x] !== -1) {
+                    this.grid[y * this.currentLevel.cols + x] = new Cell(x, y)
+                    this.grid[y * this.currentLevel.cols + x].color = this.currentLevel.colors[this.currentLevel.data[y * this.currentLevel.cols + x]]
+                }
+                else {
+                    this.grid[y * this.currentLevel.cols + x] = new Cell(x, y, false)
+                    this.grid[y * this.currentLevel.cols + x].color = '#bbbbbb'
+                }
             }
         }
     }
@@ -95,6 +101,8 @@ export default class Game {
         this.isChanging = true
         const targetCell = this.getCell(x, y);
         if (!targetCell || targetCell.color == color) return; 
+        if(!targetCell.canChange) return; 
+
         this.count--
 
         const prevColor = targetCell.color;
@@ -114,7 +122,6 @@ export default class Game {
                 const cell = this.getCell(x, y);
                 if (cell && cell.color === prevColor) {
                     cell.color = color;
-                    // this.render();
                 }
             }, step * 50);
     
@@ -146,7 +153,6 @@ export default class Game {
         if (typeof callback === "function") {
             setTimeout(() => {
                 callback();
-               
             }, step * 50); // Delay tương ứng với lần đổi màu cuối cùng
         }
     }
@@ -155,7 +161,8 @@ export default class Game {
         for (let y = 0; y < this.currentLevel.rows; y++) {
             for (let x = 0; x < this.currentLevel.cols; x++) {
                 const cell = this.grid[y * this.currentLevel.cols + x]
-                drawRoundedRect(context, x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE, 10, cell.color);
+                // drawRoundedRect(context, x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE, 10, cell.color)
+                drawCell(context, cell)
             }
         }
     }
@@ -164,6 +171,7 @@ export default class Game {
 
         this.isWinner = true; // Mặc định là thắng, kiểm tra từng ô để xác nhận
         for (let i = 0; i < this.grid.length; i++) {
+            if(!this.grid[i].canChange) continue
             if (this.grid[i].color !== this.target) {
                 this.isWinner = false;
                 break; // Thoát vòng lặp sớm nếu tìm thấy ô không khớp
@@ -178,7 +186,6 @@ export default class Game {
                 localStorage.setItem('current', (currentLevel + 1))
                 window.location.reload()
             }
-            
         } 
         else if (this.count <= 0) {
             alert("Bạn đã thua!");
