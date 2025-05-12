@@ -26,8 +26,7 @@ body {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    /* align-items: center; */
-    gap: 20px 10px;
+    gap: 10px;
     height: 100%;
 }
 
@@ -42,7 +41,7 @@ body {
     font-weight: bolder;
     font-size: 1.5rem;
     background-image: linear-gradient(to top, rgb(39, 162, 200) , rgb(255, 255, 255));
-    border-radius: 20px;
+    border-radius: 15px;
     transition: all 0.2s ease-in-out;
     color: white;
 }
